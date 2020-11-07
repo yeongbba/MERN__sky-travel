@@ -48,4 +48,20 @@ router.post("/uploadProduct", auth, (req, res) => {
   });
 });
 
+router.post("/getProducts", (req, res) => {
+  let limit = req.body.limit ? parseInt(req.body.limit) : 100;
+  let skip = parseInt(req.body.skip);
+
+  Product.find()
+    .populate("writer")
+    .skip(skip)
+    .limit(limit)
+    .exec((err, products) => {
+      if (err) return res.status(400).json({ success: false, err });
+      res
+        .status(200)
+        .json({ success: true, products, postSize: products.length });
+    });
+});
+
 module.exports = router;
