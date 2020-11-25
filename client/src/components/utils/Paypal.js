@@ -2,12 +2,17 @@ import React from "react";
 import PaypalExpressBtn from "react-paypal-express-checkout";
 
 export default class Paypal extends React.Component {
+  state = {
+    finish: true,
+  };
+
   render() {
     const onSuccess = (payment) => {
       // Congratulation, it came here means everything's fine!
       console.log("The payment was succeeded!", payment);
       // You can bind the "payment" object's value to your state or props or whatever here, please see below for sample returned data
       this.props.onSuccess(payment);
+      this.setState({ finish: false });
     };
 
     const onCancel = (data) => {
@@ -30,8 +35,8 @@ export default class Paypal extends React.Component {
 
     const client = {
       sandbox:
-        "AY57JH6-QKHoRyaWJN_3d0NrmYonTdrM64wH4XUl3R-JkqHlW_WLnDHGYzQSsbpFjZ4Y5ZQ-UshlDvy3",
-      production: "Shop-app",
+        "AeXYCAlr9AHf8Codntho0xTRrMaJYMI8-XXGxeT4MAFvrFcqNhpKvzvYKLcGZ4zyCdCeJFT7ewhrkW2w",
+      production: "YOUR-PRODUCTION-APP-ID",
     };
     // In order to get production's app-ID, you will have to send your app to Paypal for approval first
     // For sandbox app-ID (after logging into your developer account, please locate the "REST API apps" section, click "Create App"):
@@ -41,21 +46,25 @@ export default class Paypal extends React.Component {
 
     // NB. You can also have many Paypal express checkout buttons on page, just pass in the correct amount and they will work!
     return (
-      <PaypalExpressBtn
-        env={env}
-        client={client}
-        currency={currency}
-        total={total}
-        onError={onError}
-        onSuccess={onSuccess}
-        onCancel={onCancel}
-        style={{
-          size: "large",
-          color: "blue",
-          shape: "rect",
-          label: "checkout",
-        }}
-      />
+      <div>
+        {this.state.finish && (
+          <PaypalExpressBtn
+            env={env}
+            client={client}
+            currency={currency}
+            total={total}
+            onError={onError}
+            onSuccess={onSuccess}
+            onCancel={onCancel}
+            style={{
+              size: "large",
+              color: "blue",
+              shape: "rect",
+              label: "checkout",
+            }}
+          />
+        )}
+      </div>
     );
   }
 }

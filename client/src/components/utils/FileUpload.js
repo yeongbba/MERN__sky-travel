@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Dropzone from "react-dropzone";
 import { Icon } from "antd";
 import Axios from "axios";
-
 function FileUpload(props) {
   const [Images, setImages] = useState([]);
 
@@ -67,10 +66,10 @@ function FileUpload(props) {
         }}
       >
         {Images.map((image, index) => (
-          <div key={index} onClick={() => onDelete(image)}>
+          <div onClick={() => onDelete(image)}>
             <img
               style={{ minWidth: "300px", width: "300px", height: "240px" }}
-              src={`http://127.0.0.1:5003/${image}`}
+              src={`http://localhost:5000/${image}`}
               alt={`productImg-${index}`}
             />
           </div>
