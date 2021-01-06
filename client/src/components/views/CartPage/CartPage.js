@@ -109,14 +109,15 @@ function CartPage(props) {
 
       {/* Paypal Button */}
 
-      {ShowTotal && (
-        <Paypal
-          toPay={Total}
-          onSuccess={transactionSuccess}
-          transactionError={transactionError}
-          transactionCanceled={transactionCanceled}
-        />
-      )}
+      {/* {ShowTotal && ( */}
+      <Paypal
+        toPay={Total}
+        onRemove={ShowTotal}
+        onSuccess={transactionSuccess}
+        transactionError={transactionError}
+        transactionCanceled={transactionCanceled}
+      />
+      {/* )} */}
     </div>
   );
 }

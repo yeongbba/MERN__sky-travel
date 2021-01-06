@@ -1,10 +1,25 @@
 import React from "react";
+import { withRouter } from "react-router-dom";
 import PaypalExpressBtn from "react-paypal-express-checkout";
 
-export default class Paypal extends React.Component {
+class Paypal extends React.Component {
   state = {
     finish: true,
   };
+
+  componentDidMount() {
+    !this.props.onRemove && this.setState({ finish: false });
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.onRemove !== prevProps.onRemove) {
+      if (this.props.onRemove) {
+        this.setState({ finish: true });
+      } else {
+        window.alert("계산 가능한 상품이 없습니다.");
+      }
+    }
+  }
 
   render() {
     const onSuccess = (payment) => {
@@ -68,3 +83,5 @@ export default class Paypal extends React.Component {
     );
   }
 }
+
+export default withRouter(Paypal);
