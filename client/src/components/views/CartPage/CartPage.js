@@ -48,6 +48,7 @@ function CartPage(props) {
     dispatch(removeCartItem(productId)).then((response) => {
       if (response.payload.cartDetail.length <= 0) {
         setShowTotal(false);
+        setTotal(0);
       } else {
         calculateTotal(response.payload.cartDetail);
       }
