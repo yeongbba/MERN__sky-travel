@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import Axios from "axios";
 import { Icon, Col, Card, Row } from "antd";
 import ImageSlider from "../../utils/ImageSlider";
@@ -10,16 +10,32 @@ import SearchFeature from "./Sections/SearchFeature";
 const { Meta } = Card;
 
 function LandingPage() {
+  const Limit = 8;
   const [Products, setProducts] = useState([]);
   const [Skip, setSkip] = useState(0);
-  const [Limit, setLimit] = useState(8);
   const [PostSize, setPostSize] = useState();
   const [SearchTerms, setSearchTerms] = useState("");
-
   const [Filters, setFilters] = useState({
     continents: [],
     price: [],
   });
+
+  const getProducts = useCallback((variables) => {
+    Axios.post("/api/product/getProducts", variables).then((response) => {
+      if (response.data.success) {
+        if (variables.loadMore) {
+          setProducts((products) => {
+            return [...products, ...response.data.products];
+          });
+        } else {
+          setProducts(response.data.products);
+        }
+        setPostSize(response.data.postSize);
+      } else {
+        alert("Failed to fetch product datas");
+      }
+    });
+  }, []);
 
   useEffect(() => {
     const variables = {
@@ -29,21 +45,6 @@ function LandingPage() {
 
     getProducts(variables);
   }, []);
-
-  const getProducts = (variables) => {
-    Axios.post("/api/product/getProducts", variables).then((response) => {
-      if (response.data.success) {
-        if (variables.loadMore) {
-          setProducts([...Products, ...response.data.products]);
-        } else {
-          setProducts(response.data.products);
-        }
-        setPostSize(response.data.postSize);
-      } else {
-        alert("Failed to fectch product datas");
-      }
-    });
-  };
 
   const onLoadMore = () => {
     let skip = Skip + Limit;
@@ -61,7 +62,7 @@ function LandingPage() {
 
   const renderCards = Products.map((product, index) => {
     return (
-      <Col lg={6} md={8} xs={24}>
+      <Col lg={6} md={8} xs={24} key={index}>
         <Card
           hoverable={true}
           cover={
@@ -96,7 +97,6 @@ function LandingPage() {
         array = data[key].array;
       }
     }
-    console.log("array", array);
     return array;
   };
 
@@ -109,8 +109,6 @@ function LandingPage() {
       let priceValues = handlePrice(filters);
       newFilters[category] = priceValues;
     }
-
-    console.log(newFilters);
 
     showFilteredResults(newFilters);
     setFilters(newFilters);

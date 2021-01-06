@@ -31,7 +31,7 @@ function CartPage(props) {
         );
       }
     }
-  }, [props.user.userData]);
+  }, [props.user.userData, dispatch]);
 
   const calculateTotal = (cartDetail) => {
     let total = 0;

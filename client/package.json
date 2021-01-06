@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/helper-builder-react-jsx": "^7.10.4",
     "antd": "^3.24.1",
     "axios": "^0.18.0",
     "formik": "^1.5.8",

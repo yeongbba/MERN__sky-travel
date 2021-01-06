@@ -1,24 +1,35 @@
-import React, { useState } from 'react';
-import LeftMenu from './Sections/LeftMenu';
-import RightMenu from './Sections/RightMenu';
-import { Drawer, Button, Icon } from 'antd';
-import './Sections/Navbar.css';
+import React, { useState } from "react";
+import LeftMenu from "./Sections/LeftMenu";
+import RightMenu from "./Sections/RightMenu";
+import { Drawer, Button, Icon } from "antd";
+import logo from "../../../images/travel_logo.svg";
+import "./Sections/Navbar.css";
 
 function NavBar() {
-  const [visible, setVisible] = useState(false)
+  const [visible, setVisible] = useState(false);
 
   const showDrawer = () => {
-    setVisible(true)
+    setVisible(true);
   };
 
   const onClose = () => {
-    setVisible(false)
+    setVisible(false);
   };
 
   return (
-    <nav className="menu" style={{ position: 'fixed', zIndex: 5, width: '100%' }}>
+    <nav
+      className="menu"
+      style={{
+        position: "fixed",
+        zIndex: 5,
+        width: "100%",
+        overflow: "hidden",
+      }}
+    >
       <div className="menu__logo">
-        <a href="/">Logo</a>
+        <a href="/">
+          <img src={logo} style={{ width: "3.9rem" }} alt="logo" />
+        </a>
       </div>
       <div className="menu__container">
         <div className="menu_left">
@@ -47,7 +58,7 @@ function NavBar() {
         </Drawer>
       </div>
     </nav>
-  )
+  );
 }
 
-export default NavBar
+export default NavBar;

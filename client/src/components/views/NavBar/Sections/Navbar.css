@@ -1,4 +1,4 @@
-@import '~antd/dist/antd.css';
+@import "~antd/dist/antd.css";
 
 .menu {
   padding: 0 20px;
@@ -11,12 +11,12 @@
 .menu__logo {
   width: 150px;
   float: left;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .menu__logo a {
   display: inline-block;
-  font-size: 20px;
-  padding: 19px 20px;
 }
 
 .menu__container .ant-menu-item {
