@@ -8,7 +8,7 @@
   
 ### STACKS : React, Redux, Redux-Thunk, MongoDB, Nodejs, Express, Javascript, HTML5, CSS
   
-React와 Firebase를 주기술로 사용하였습니다.
+React, Redux, Nodejs, Express, MongoDB를 주기술로 사용하였습니다.
 <br>
 <br>  
   
